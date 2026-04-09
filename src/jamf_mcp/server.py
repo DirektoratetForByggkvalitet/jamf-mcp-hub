@@ -23,6 +23,7 @@ import sys
 from contextlib import asynccontextmanager
 
 from mcp.server.fastmcp import FastMCP
+from mcp.server.transport_security import TransportSecuritySettings
 
 from . import __version__
 from .auth import JamfAuthError
@@ -192,7 +193,7 @@ All tools return JSON responses with 'success', 'message', and 'data' fields.
 Use pagination parameters (page, page_size) for large result sets.""",
     lifespan=jamf_lifespan,
     transport_security=TransportSecuritySettings(
-        enable_dns_rebinding=True,
+        enable_dns_rebinding_protection=True,
         allowed_hosts=["127.0.0.1:*", "localhost:*", "[::1]:*", "jamf-mcp-hub:*"]
     ),
 )
