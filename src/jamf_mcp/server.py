@@ -254,10 +254,11 @@ def main():
     register_all_tools(mcp, tool_filter=tool_filter, allowed_products=products)
     register_prompts(mcp)
 
-    if transport == "stdio":
-        mcp.run()
-    else:
-        mcp.run(transport=transport, host=host, port=port)
+    if transport != "stdio":
+        mcp.settings.host = host
+        mcp.settings.port = port
+
+    mcp.run(transport=transport)
 
 
 if __name__ == "__main__":
