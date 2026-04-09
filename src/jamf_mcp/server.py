@@ -215,11 +215,19 @@ def main():
     # FastMCP run() usually takes control.
     # If we run with `python -m src.jamf_mcp.server`, we are calling this main.
     
+    parser.add_argument(
+        "--transport",
+        choices=["stdio", "sse", "streamable-http"],
+        help="MCP transport to use (overrides MCP_TRANSPORT env var)",
+    )
+    parser.add_argument("--host", help="Host to bind to for network transports (default: 0.0.0.0)")
+    parser.add_argument("--port", type=int, help="Port to listen on for network transports (default: 8000)")
+
     args, unknown = parser.parse_known_args()
-    
+
     # Determine filter: CLI arg > Env var > Default (None = all)
     tool_filter = args.tool_filter or os.environ.get("JAMF_TOOL_FILTER")
-    
+
     # Determine products: CLI arg > Env var > Default (None = all)
     products = args.products
     if not products and os.environ.get("JAMF_PRODUCTS"):
@@ -227,18 +235,29 @@ def main():
         # clean whitespace
         products = [p.strip() for p in products if p.strip()]
 
+    # Determine transport: CLI arg > Env var > Default (stdio)
+    transport = args.transport or os.environ.get("MCP_TRANSPORT", "stdio")
+    host = args.host or os.environ.get("MCP_HOST", "0.0.0.0")
+    port = args.port or int(os.environ.get("MCP_PORT", "8000"))
+
     logger.info("Initializing Jamf MCP Server v%s", __version__)
-    
+
     if tool_filter:
         logger.info("Appying tool filter: %s", tool_filter)
-        
+
     if products:
         logger.info("Applying product filter: %s", products)
-    
+
+    if transport != "stdio":
+        logger.info("Using %s transport on %s:%d", transport, host, port)
+
     register_all_tools(mcp, tool_filter=tool_filter, allowed_products=products)
     register_prompts(mcp)
-    
-    mcp.run()
+
+    if transport == "stdio":
+        mcp.run()
+    else:
+        mcp.run(transport=transport, host=host, port=port)
 
 
 if __name__ == "__main__":

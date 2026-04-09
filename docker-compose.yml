@@ -1,0 +1,26 @@
+services:
+  jamf-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: jamf-mcp-hub:latest
+    container_name: jamf-mcp-hub
+
+    # Expose MCP over SSE on port 8000.
+    # Connect MCP clients to: http://localhost:8000/sse
+    ports:
+      - "8000:8000"
+
+    # Load credentials from a local .env file (never commit this file!)
+    env_file:
+      - .env
+
+    environment:
+      PYTHONUNBUFFERED: 1
+      MCP_TRANSPORT: sse
+      # Override host/port if needed:
+      # - MCP_HOST=0.0.0.0
+      # - MCP_PORT=8000
+
+      # Restart policy — adjust to your preference
+    restart: always
