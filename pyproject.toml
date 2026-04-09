@@ -38,11 +38,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project.scripts]
-jamf-mcp = "jamf_mcp.server:main"
-jamf-mcp-test = "jamf_mcp.test_runner:run"
+jamf-mcp = "jamf_mcp_hub.server:main"
+jamf-mcp-test = "jamf_mcp_hub.test_runner:run"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/jamf_mcp"]
+packages = ["src/jamf_mcp_hub"]
 
 [tool.ruff]
 line-length = 100
