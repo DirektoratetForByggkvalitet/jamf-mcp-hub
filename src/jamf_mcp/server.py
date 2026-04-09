@@ -191,6 +191,10 @@ IMPORTANT RULES:
 All tools return JSON responses with 'success', 'message', and 'data' fields.
 Use pagination parameters (page, page_size) for large result sets.""",
     lifespan=jamf_lifespan,
+    transport_security=TransportSecuritySettings(
+        enable_dns_rebinding=True,
+        allowed_hosts=["127.0.0.1:*", "localhost:*", "[::1]:*", "jamf-mcp-hub:*"]
+    ),
 )
 
 import argparse

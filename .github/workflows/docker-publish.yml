@@ -29,7 +29,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Lås opp nøkkelring
+      - name: Unlock macOS keychain
         run: security -v unlock-keychain -p ${{secrets.MACOS_KC_PASS}} ~/Library/Keychains/login.keychain-db
 
       - name: Set up Docker Buildx
