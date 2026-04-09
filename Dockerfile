@@ -7,7 +7,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 WORKDIR /build
 
 # Copy dependency files first (better layer caching)
-COPY pyproject.toml uv.lock requirements.txt ./
+COPY pyproject.toml uv.lock requirements.txt README.md ./
 COPY src/ ./src/
 
 # Install dependencies into a virtual environment inside /build/.venv
