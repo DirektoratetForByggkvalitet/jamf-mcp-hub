@@ -1,6 +1,6 @@
 [project]
 name = "jamf-mcp-hub"
-version = "0.1.0"
+version = "0.5.0"
 description = "MCP server for Jamf Pro API integration - enables LLMs to interact with Jamf Pro"
 readme = "README.md"
 requires-python = ">=3.10"
