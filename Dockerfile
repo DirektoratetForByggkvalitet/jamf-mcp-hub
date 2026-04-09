@@ -1,5 +1,5 @@
 # ── Stage 1: Builder ────────────────────────────────────────────────────────
-FROM python:3.14-alpine AS builder
+FROM python:3.14-slim AS builder
 
 # Install uv for fast dependency resolution
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
@@ -19,7 +19,7 @@ RUN uv sync --frozen --no-dev
 
 
 # ── Stage 2: Runtime ─────────────────────────────────────────────────────────
-FROM python:3.14-alpine AS runtime
+FROM python:3.14-slim AS runtime
 
 # Non-root user for security
 RUN groupadd --gid 1001 jamf && \
