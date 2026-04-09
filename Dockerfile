@@ -15,7 +15,7 @@ ENV UV_PROJECT_ENVIRONMENT=/build/.venv \
     UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy
 
-RUN uv sync --frozen --no-dev
+RUN uv sync --frozen --no-dev && rm README.md
 
 
 # ── Stage 2: Runtime ─────────────────────────────────────────────────────────
