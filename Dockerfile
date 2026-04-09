@@ -42,4 +42,4 @@ USER jamf
 # Expose port for SSE / streamable-http transport (not used in stdio mode)
 EXPOSE 8000
 
-ENTRYPOINT ["python", "-m", "jamf_mcp_hub.server"]
+ENTRYPOINT ["python", "-m", "jamf_mcp.server"]
