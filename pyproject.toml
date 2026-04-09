@@ -2,7 +2,7 @@
 name = "jamf-mcp"
 version = "0.1.0"
 description = "MCP server for Jamf Pro API integration - enables LLMs to interact with Jamf Pro"
-readme = "README.md"
+readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
