@@ -17,10 +17,9 @@ services:
 
     environment:
       PYTHONUNBUFFERED: 1
-      MCP_TRANSPORT: sse
+      MCP_TRANSPORT: streamable-http
       # Override host/port if needed:
-      # - MCP_HOST=0.0.0.0
-      # - MCP_PORT=8000
-
+      # MCP_HOST: [IP_ADDRESS]
+      MCP_PORT: 8000
       # Restart policy — adjust to your preference
     restart: always
