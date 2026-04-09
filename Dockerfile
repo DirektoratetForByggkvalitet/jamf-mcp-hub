@@ -15,7 +15,7 @@ ENV UV_PROJECT_ENVIRONMENT=/build/.venv \
     UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy
 
-RUN uv sync --frozen --no-dev && rm README.md
+RUN uv sync --frozen --no-dev --no-editable && rm README.md
 
 
 # ── Stage 2: Runtime ─────────────────────────────────────────────────────────
@@ -31,13 +31,12 @@ WORKDIR /app
 COPY --from=builder /build/.venv /app/.venv
 COPY --from=builder /build/src /app/src
 
+# Drop to non-root
+USER jamf
 # Make sure the venv binaries are on PATH
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
-
-# Drop to non-root
-USER jamf
 
 # Expose port for SSE / streamable-http transport (not used in stdio mode)
 EXPOSE 8000
